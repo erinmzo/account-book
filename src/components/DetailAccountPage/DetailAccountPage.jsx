@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { FamilyProps } from "../../context/Context";
+import { edit, remove } from "../../store/slices/accountSlice";
 
 const Box = styled.div`
   padding: 20px;
@@ -47,11 +48,13 @@ const BtnBox = styled.div`
   }
 `;
 function DetailAccount() {
-  const { accountLists, setAccountLists } = useContext(FamilyProps);
   let { detailId } = useParams();
   const navigate = useNavigate();
-  const { date, category, content, price } =
-    accountLists.find((list) => list.id === detailId) || [];
+  const dispatch = useDispatch();
+  const accountLists = useSelector((state) => state.accountList.list);
+  const { date, category, content, price, id } = accountLists.find((list) => {
+    return list.id === detailId;
+  });
 
   const [editDate, setEditDate] = useState(date);
   const [editCategory, setEditCategory] = useState(category);
@@ -73,6 +76,7 @@ function DetailAccount() {
 
   const handleEditAccount = () => {
     const editList = {
+      id: id,
       date: editDate,
       category: editCategory,
       price: editPrice,
@@ -80,21 +84,14 @@ function DetailAccount() {
       month: Number(editDate.slice(5, 7)),
     };
 
-    setAccountLists((prev) => {
-      return prev.map((list) => {
-        if (list.id === detailId) {
-          return { ...list, ...editList };
-        }
-        return list;
-      });
-    });
+    dispatch(edit(editList));
     navigate("/");
   };
 
   const handleDeleteAccount = () => {
     alert("삭제됩니다.");
-    const filteredList = accountLists.filter((list) => list.id !== detailId);
-    setAccountLists(filteredList);
+    // const filteredList = accountLists.filter((list) => list.id !== detailId);
+    dispatch(remove(id));
     navigate("/");
   };
 

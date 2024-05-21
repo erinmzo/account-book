@@ -1,7 +1,6 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { FamilyProps } from "../../context/Context";
 const StListBox = styled.div`
   background-color: white;
   padding: 20px;
@@ -54,7 +53,8 @@ const StListBox = styled.div`
 `;
 
 function ListAccount() {
-  const { clickedMonth, accountLists } = useContext(FamilyProps);
+  const accountLists = useSelector((state) => state.accountList.list);
+  const clickedMonth = useSelector((state) => state.clickedMonth.month);
   const monthlyList = accountLists.filter(
     (list) => list.month === clickedMonth
   );
