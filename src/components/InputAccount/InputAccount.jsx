@@ -33,7 +33,13 @@ const StInputBox = styled.form`
     }
   }
 `;
-function InputAccount({ setAccountLists, price, setPrice, setClickedMonth }) {
+function InputAccount({
+  setAccountLists,
+  price,
+  setPrice,
+  setClickedMonth,
+  setAmount,
+}) {
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
@@ -79,6 +85,7 @@ function InputAccount({ setAccountLists, price, setPrice, setClickedMonth }) {
       id: uuidv4(),
     };
     setAccountLists((prev) => [...prev, { ...newList }]);
+    setAmount((prev) => prev + Number(price));
     setDate("");
     setCategory("");
     setPrice("");

@@ -45,7 +45,6 @@ function ListAccount({ clickedMonth, accountLists }) {
   const monthlyList = accountLists.filter(
     (list) => list.month === clickedMonth
   );
-  console.log(monthlyList);
   return (
     <StListBox>
       <ul>
@@ -58,7 +57,7 @@ function ListAccount({ clickedMonth, accountLists }) {
                   <span className="title">
                     {list.category} - {list.content}
                   </span>
-                  <span className="price">{list.price}</span>
+                  <span className="price">{list.price}원</span>
                 </div>
               </Link>
             </li>

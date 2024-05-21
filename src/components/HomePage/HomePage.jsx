@@ -11,6 +11,8 @@ function HomePage({
   setClickedMonth,
 }) {
   const [price, setPrice] = useState("");
+  const [amount, setAmount] = useState(0);
+
   return (
     <>
       <div className="wrapper">
@@ -20,12 +22,13 @@ function HomePage({
             setPrice={setPrice}
             setAccountLists={setAccountLists}
             setClickedMonth={setClickedMonth}
+            setAmount={setAmount}
           />
           <TabMonth
             setClickedMonth={setClickedMonth}
             clickedMonth={clickedMonth}
           />
-          <GraphAccount />
+          <GraphAccount amount={amount} />
           <ListAccount
             accountLists={accountLists}
             clickedMonth={clickedMonth}
