@@ -19,6 +19,7 @@ function HomePage({
             price={price}
             setPrice={setPrice}
             setAccountLists={setAccountLists}
+            setClickedMonth={setClickedMonth}
           />
           <TabMonth
             setClickedMonth={setClickedMonth}
