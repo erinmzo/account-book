@@ -27,7 +27,17 @@ const StListBox = styled.div`
         div {
           display: flex;
           justify-content: space-between;
+          .title {
+            max-width: 600px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
           .price {
+            max-width: 150px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
             color: #0046ff;
             font-weight: 500;
           }
