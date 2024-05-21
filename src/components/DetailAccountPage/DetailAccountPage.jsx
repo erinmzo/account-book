@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { FamilyProps } from "../../context/Context";
 
 const Box = styled.div`
   padding: 20px;
@@ -45,7 +46,8 @@ const BtnBox = styled.div`
     background-color: #666;
   }
 `;
-function DetailAccount({ accountLists, setAccountLists }) {
+function DetailAccount() {
+  const { accountLists, setAccountLists } = useContext(FamilyProps);
   let { detailId } = useParams();
   const navigate = useNavigate();
   const { date, category, content, price } =
