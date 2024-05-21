@@ -33,7 +33,7 @@ const StInputBox = styled.form`
     }
   }
 `;
-function InputAccount({ setAccountLists, price, setPrice }) {
+function InputAccount({ setAccountLists, price, setPrice, setClickedMonth }) {
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
@@ -83,6 +83,7 @@ function InputAccount({ setAccountLists, price, setPrice }) {
     setCategory("");
     setPrice("");
     setContent("");
+    setClickedMonth(newList.month);
   };
 
   return (

@@ -80,7 +80,10 @@ function DetailAccount({ accountLists, setAccountLists }) {
 
     setAccountLists((prev) => {
       return prev.map((list) => {
-        return { ...list, ...editList };
+        if (list.id === detailId) {
+          return { ...list, ...editList };
+        }
+        return list;
       });
     });
     navigate("/");
