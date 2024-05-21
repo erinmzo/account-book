@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { FamilyProps } from "../../context/Context";
 
 const StGraphbox = styled.div`
   background-color: white;
@@ -9,7 +11,8 @@ const StGraphbox = styled.div`
   font-weight: 500;
   font-size: 24px;
 `;
-function GraphAccount({ amount }) {
+function GraphAccount() {
+  const { amount } = useContext(FamilyProps);
   return <StGraphbox>총 사용한 금액은 {amount}원 입니다.</StGraphbox>;
 }
 

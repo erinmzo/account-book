@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
+import { FamilyProps } from "../../context/Context";
 const StInputBox = styled.form`
   background-color: white;
   padding: 20px;
@@ -33,13 +34,9 @@ const StInputBox = styled.form`
     }
   }
 `;
-function InputAccount({
-  setAccountLists,
-  price,
-  setPrice,
-  setClickedMonth,
-  setAmount,
-}) {
+function InputAccount() {
+  const { setAccountLists, price, setPrice, setClickedMonth, setAmount } =
+    useContext(FamilyProps);
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");

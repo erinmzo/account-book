@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { FamilyProps } from "../../context/Context";
 
 const StTabBox = styled.div`
   background-color: white;
@@ -26,7 +28,8 @@ const Li = styled.li`
   }
 `;
 
-function TabMonth({ setClickedMonth, clickedMonth }) {
+function TabMonth() {
+  const { setClickedMonth, clickedMonth } = useContext(FamilyProps);
   const months = [];
   for (let i = 0; i < 12; i++) {
     months[i] = i + 1;
