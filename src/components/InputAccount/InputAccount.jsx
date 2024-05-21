@@ -1,7 +1,9 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
-import { FamilyProps } from "../../context/Context";
+import { add } from "../../store/slices/accountSlice";
+import { set } from "../../store/slices/monthSlice";
 const StInputBox = styled.form`
   background-color: white;
   padding: 20px;
@@ -34,9 +36,8 @@ const StInputBox = styled.form`
     }
   }
 `;
-function InputAccount() {
-  const { setAccountLists, price, setPrice, setClickedMonth, setAmount } =
-    useContext(FamilyProps);
+function InputAccount({ price, setPrice, setAmount }) {
+  const dispatch = useDispatch();
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
@@ -81,13 +82,13 @@ function InputAccount() {
       month: Number(date.slice(5, 7)),
       id: uuidv4(),
     };
-    setAccountLists((prev) => [...prev, { ...newList }]);
-    setAmount((prev) => prev + Number(price));
+    setAmount((prev) => Number(prev) + Number(price));
+    dispatch(add(newList));
     setDate("");
     setCategory("");
     setPrice("");
     setContent("");
-    setClickedMonth(newList.month);
+    dispatch(set(newList.month));
   };
 
   return (

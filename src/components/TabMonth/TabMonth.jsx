@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { FamilyProps } from "../../context/Context";
+import { set } from "../../store/slices/monthSlice";
 
 const StTabBox = styled.div`
   background-color: white;
@@ -29,13 +29,14 @@ const Li = styled.li`
 `;
 
 function TabMonth() {
-  const { setClickedMonth, clickedMonth } = useContext(FamilyProps);
+  const clickedMonth = useSelector((state) => state.clickedMonth.month);
+  const dispatch = useDispatch();
   const months = [];
   for (let i = 0; i < 12; i++) {
     months[i] = i + 1;
   }
   const handleMonthTab = (month) => {
-    setClickedMonth(month);
+    dispatch(set(month));
   };
 
   return (
