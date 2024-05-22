@@ -1,8 +1,9 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import useInputChange from "../../hooks/useInputChange";
 import { edit, remove } from "../../store/slices/accountSlice";
+import EditInputs from "../EditInputs";
 
 const Box = styled.div`
   padding: 20px;
@@ -56,7 +57,7 @@ function DetailAccount() {
     return item.id === detailId;
   });
 
-  const [input, setInput] = useState({
+  const { values: input, handler: onChangeEditValue } = useInputChange({
     editDate: date,
     editCategory: category,
     editContent: content,
@@ -65,31 +66,21 @@ function DetailAccount() {
 
   const { editDate, editCategory, editContent, editPrice } = input;
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setInput({
-      ...input,
-      [name]: value,
-    });
-  };
-
   const handleEditAccount = () => {
     const editList = {
       id: id,
       date: editDate,
       category: editCategory,
-      price: editPrice,
+      price: Number(editPrice),
       content: editContent,
       month: Number(editDate.slice(5, 7)),
     };
-
     dispatch(edit(editList));
     navigate("/");
   };
 
   const handleDeleteAccount = () => {
     alert("삭제됩니다.");
-    // const filteredList = accountLists.filter((list) => list.id !== detailId);
     dispatch(remove(id));
     navigate("/");
   };
@@ -103,46 +94,7 @@ function DetailAccount() {
       <div className="wrapper">
         <div className="container">
           <Box>
-            <div>
-              <label htmlFor="dateInput">날짜</label>
-              <input
-                id="dateInput"
-                type="text"
-                name="editDate"
-                value={editDate}
-                onChange={onChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="dateCategory">항목</label>
-              <input
-                id="dateCategory"
-                type="text"
-                name="editCategory"
-                value={editCategory}
-                onChange={onChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="dateContent">내용</label>
-              <input
-                id="dateContent"
-                type="text"
-                name="editContent"
-                value={editContent}
-                onChange={onChange}
-              />
-            </div>
-            <div>
-              <label htmlFor="datePrice">금액</label>
-              <input
-                id="datePrice"
-                type="text"
-                name="editPrice"
-                value={editPrice}
-                onChange={onChange}
-              />
-            </div>
+            <EditInputs input={input} onChangeEditValue={onChangeEditValue} />
           </Box>
           <BtnBox>
             <button type="submit" onClick={handleEditAccount}>

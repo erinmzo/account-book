@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import useInputChange from "../../hooks/useInputChange";
 import { add } from "../../store/slices/accountSlice";
 import { set } from "../../store/slices/monthSlice";
+import Inputs from "../Inputs";
 const StInputBox = styled.form`
   background-color: white;
   padding: 20px;
@@ -36,12 +37,12 @@ const StInputBox = styled.form`
     }
   }
 `;
-function InputAccount({ setAmount }) {
+function InputAccount() {
   const dispatch = useDispatch();
 
   const {
     values: input,
-    handler: onChange,
+    handler: onChangeInput,
     reset: onReset,
   } = useInputChange({
     date: "",
@@ -51,7 +52,7 @@ function InputAccount({ setAmount }) {
   });
   const { date, category, content, price } = input;
 
-  const isValidated = () => {
+  const validate = () => {
     if (!date.trim() || !category.trim() || !content.trim() || !price.trim()) {
       alert("모든 항목을 입력해주세요.");
       return false;
@@ -73,19 +74,20 @@ function InputAccount({ setAmount }) {
 
   const submitAccount = (e) => {
     e.preventDefault();
-    if (!isValidated()) {
-      return;
-    }
+
+    const isValid = validate();
+    if (!isValid) return;
+
     const newList = {
       date,
       category,
-      price,
+      price: Number(price),
       content,
       //YYYY-MM-DD에서 MM을 추출한것
       month: Number(date.slice(5, 7)),
       id: uuidv4(),
     };
-    setAmount((prev) => Number(prev) + Number(price));
+
     dispatch(add(newList));
     onReset();
     dispatch(set(newList.month));
@@ -93,50 +95,7 @@ function InputAccount({ setAmount }) {
 
   return (
     <StInputBox onSubmit={submitAccount}>
-      <div>
-        <label htmlFor="inputDate">날짜</label>
-        <input
-          type="text"
-          id="inputDate"
-          name="date"
-          placeholder="YYYY-MM-DD"
-          value={date}
-          onChange={onChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="inputCategory">항목</label>
-        <input
-          type="text"
-          id="inputCategory"
-          name="category"
-          placeholder="지출 항목"
-          value={category}
-          onChange={onChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="inputPrice">금액</label>
-        <input
-          type="text"
-          id="inputPrice"
-          placeholder="지출 금액"
-          name="price"
-          value={price}
-          onChange={onChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="inpuContent">내용</label>
-        <input
-          type="text"
-          id="inputContent"
-          placeholder="지출 내용"
-          name="content"
-          value={content}
-          onChange={onChange}
-        />
-      </div>
+      <Inputs onChangeInput={onChangeInput} input={input} />
       <div>
         <button>저장</button>
       </div>
