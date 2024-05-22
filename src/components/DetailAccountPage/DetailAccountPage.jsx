@@ -52,26 +52,25 @@ function DetailAccount() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const accountLists = useSelector((state) => state.accountList.list);
-  const { date, category, content, price, id } = accountLists.find((list) => {
-    return list.id === detailId;
+  const { date, category, content, price, id } = accountLists.find((item) => {
+    return item.id === detailId;
   });
 
-  const [editDate, setEditDate] = useState(date);
-  const [editCategory, setEditCategory] = useState(category);
-  const [editContent, setEditContent] = useState(content);
-  const [editPrice, setEditPrice] = useState(price);
+  const [input, setInput] = useState({
+    editDate: date,
+    editCategory: category,
+    editContent: content,
+    editPrice: price,
+  });
 
-  const handleEditDate = (e) => {
-    setEditDate(e.target.value);
-  };
-  const handleEditCategory = (e) => {
-    setEditCategory(e.target.value);
-  };
-  const handleEditContent = (e) => {
-    setEditContent(e.target.value);
-  };
-  const handleEditPrice = (e) => {
-    setEditPrice(e.target.value);
+  const { editDate, editCategory, editContent, editPrice } = input;
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInput({
+      ...input,
+      [name]: value,
+    });
   };
 
   const handleEditAccount = () => {
@@ -109,35 +108,39 @@ function DetailAccount() {
               <input
                 id="dateInput"
                 type="text"
+                name="editDate"
                 value={editDate}
-                onChange={handleEditDate}
+                onChange={onChange}
               />
             </div>
             <div>
-              <label htmlFor="dateInput">항목</label>
+              <label htmlFor="dateCategory">항목</label>
               <input
-                id="dateInput"
+                id="dateCategory"
                 type="text"
+                name="editCategory"
                 value={editCategory}
-                onChange={handleEditCategory}
+                onChange={onChange}
               />
             </div>
             <div>
-              <label htmlFor="dateInput">내용</label>
+              <label htmlFor="dateContent">내용</label>
               <input
-                id="dateInput"
+                id="dateContent"
                 type="text"
+                name="editContent"
                 value={editContent}
-                onChange={handleEditContent}
+                onChange={onChange}
               />
             </div>
             <div>
-              <label htmlFor="dateInput">금액</label>
+              <label htmlFor="datePrice">금액</label>
               <input
-                id="dateInput"
+                id="datePrice"
                 type="text"
+                name="editPrice"
                 value={editPrice}
-                onChange={handleEditPrice}
+                onChange={onChange}
               />
             </div>
           </Box>

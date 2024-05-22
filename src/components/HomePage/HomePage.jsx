@@ -5,17 +5,12 @@ import ListAccount from "../ListAccount";
 import TabMonth from "../TabMonth";
 
 function HomePage() {
-  const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("0");
   return (
     <>
       <div className="wrapper">
         <div className="container">
-          <InputAccount
-            price={price}
-            setPrice={setPrice}
-            setAmount={setAmount}
-          />
+          <InputAccount setAmount={setAmount} />
           <TabMonth />
           <GraphAccount amount={amount} />
           <ListAccount />
