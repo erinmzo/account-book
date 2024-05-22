@@ -49,28 +49,33 @@ function InputAccount({ setAmount }) {
     content: "",
     price: "",
   });
-  console.log(input);
   const { date, category, content, price } = input;
 
-  const validation = () => {
+  const isValidated = () => {
     if (!date.trim() || !category.trim() || !content.trim() || !price.trim()) {
-      return alert("모든 항목을 입력해주세요.");
+      alert("모든 항목을 입력해주세요.");
+      return false;
     }
 
     const dateReg = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/;
     if (!dateReg.test(date)) {
-      return alert("YYYY-MM-DD 형식을 맞춰주세요.");
+      alert("YYYY-MM-DD 형식을 맞춰주세요.");
+      return false;
     }
 
     const numbReg = /^[1-9][0-9]*$/;
     if (!numbReg.test(price)) {
-      return alert("0으로 시작하지 않는 숫자만 넣어주세요");
+      alert("0으로 시작하지 않는 숫자만 넣어주세요");
+      return false;
     }
+    return true;
   };
 
   const submitAccount = (e) => {
     e.preventDefault();
-    validation();
+    if (!isValidated()) {
+      return;
+    }
     const newList = {
       date,
       category,
