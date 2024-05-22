@@ -56,21 +56,21 @@ function ListAccount() {
   const accountLists = useSelector((state) => state.accountList.list);
   const clickedMonth = useSelector((state) => state.clickedMonth.month);
   const monthlyList = accountLists.filter(
-    (list) => list.month === clickedMonth
+    (item) => item.month === clickedMonth
   );
   return (
     <StListBox>
       <ul>
-        {monthlyList.map((list) => {
+        {monthlyList.map((month) => {
           return (
-            <li key={list.id}>
-              <Link to={`/detail/${list.id}`}>
-                <span className="date">{list.date}</span>
+            <li key={month.id}>
+              <Link to={`/detail/${month.id}`}>
+                <span className="date">{month.date}</span>
                 <div>
                   <span className="title">
-                    {list.category} - {list.content}
+                    {month.category} - {month.content}
                   </span>
-                  <span className="price">{list.price}원</span>
+                  <span className="price">{month.price}원</span>
                 </div>
               </Link>
             </li>

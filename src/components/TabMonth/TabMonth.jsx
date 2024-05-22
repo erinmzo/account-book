@@ -28,13 +28,10 @@ const Li = styled.li`
   }
 `;
 
+const MONTH = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 function TabMonth() {
   const clickedMonth = useSelector((state) => state.clickedMonth.month);
   const dispatch = useDispatch();
-  const months = [];
-  for (let i = 0; i < 12; i++) {
-    months[i] = i + 1;
-  }
   const handleMonthTab = (month) => {
     dispatch(set(month));
   };
@@ -42,7 +39,7 @@ function TabMonth() {
   return (
     <StTabBox>
       <ul>
-        {months.map((month) => {
+        {MONTH.map((month) => {
           return (
             <Li
               key={month}

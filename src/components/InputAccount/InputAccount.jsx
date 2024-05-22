@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
+import useInputChange from "../../hooks/useInputChange";
 import { add } from "../../store/slices/accountSlice";
 import { set } from "../../store/slices/monthSlice";
 const StInputBox = styled.form`
@@ -36,27 +36,24 @@ const StInputBox = styled.form`
     }
   }
 `;
-function InputAccount({ price, setPrice, setAmount }) {
+function InputAccount({ setAmount }) {
   const dispatch = useDispatch();
-  const [date, setDate] = useState("");
-  const [category, setCategory] = useState("");
-  const [content, setContent] = useState("");
 
-  const handleDateChange = (e) => {
-    setDate(e.target.value);
-  };
-  const handleCategroyChange = (e) => {
-    setCategory(e.target.value);
-  };
-  const handelPriceChange = (e) => {
-    setPrice(e.target.value);
-  };
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
-  };
+  const {
+    values: input,
+    handler: onChange,
+    reset: onReset,
+  } = useInputChange({
+    date: "",
+    category: "",
+    content: "",
+    price: "",
+  });
+  console.log(input);
+  const { date, category, content, price } = input;
 
   const validation = () => {
-    if (!date || !category || !content || !price) {
+    if (!date.trim() || !category.trim() || !content.trim() || !price.trim()) {
       return alert("모든 항목을 입력해주세요.");
     }
 
@@ -79,15 +76,13 @@ function InputAccount({ price, setPrice, setAmount }) {
       category,
       price,
       content,
+      //YYYY-MM-DD에서 MM을 추출한것
       month: Number(date.slice(5, 7)),
       id: uuidv4(),
     };
     setAmount((prev) => Number(prev) + Number(price));
     dispatch(add(newList));
-    setDate("");
-    setCategory("");
-    setPrice("");
-    setContent("");
+    onReset();
     dispatch(set(newList.month));
   };
 
@@ -98,9 +93,10 @@ function InputAccount({ price, setPrice, setAmount }) {
         <input
           type="text"
           id="inputDate"
+          name="date"
           placeholder="YYYY-MM-DD"
           value={date}
-          onChange={handleDateChange}
+          onChange={onChange}
         />
       </div>
       <div>
@@ -108,9 +104,10 @@ function InputAccount({ price, setPrice, setAmount }) {
         <input
           type="text"
           id="inputCategory"
+          name="category"
           placeholder="지출 항목"
           value={category}
-          onChange={handleCategroyChange}
+          onChange={onChange}
         />
       </div>
       <div>
@@ -119,8 +116,9 @@ function InputAccount({ price, setPrice, setAmount }) {
           type="text"
           id="inputPrice"
           placeholder="지출 금액"
+          name="price"
           value={price}
-          onChange={handelPriceChange}
+          onChange={onChange}
         />
       </div>
       <div>
@@ -129,8 +127,9 @@ function InputAccount({ price, setPrice, setAmount }) {
           type="text"
           id="inputContent"
           placeholder="지출 내용"
+          name="content"
           value={content}
-          onChange={handleContentChange}
+          onChange={onChange}
         />
       </div>
       <div>

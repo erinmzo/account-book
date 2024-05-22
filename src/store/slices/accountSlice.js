@@ -8,14 +8,14 @@ export const accountSlice = createSlice({
       state.list = [...state.list, action.payload];
     },
     remove: (state, action) => {
-      state.list = state.list.filter((list) => list.id !== action.payload);
+      state.list = state.list.filter((item) => item.id !== action.payload);
     },
     edit: (state, action) => {
-      state.list = state.list.map((list) => {
-        if (list.id == action.payload.id) {
+      state.list = state.list.map((item) => {
+        if (item.id == action.payload.id) {
           return action.payload;
         }
-        return list;
+        return item;
       });
     },
   },
