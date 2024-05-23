@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialState = { list: [] };
+const initialState = { list: [], month: 1 };
 export const accountSlice = createSlice({
   name: "account",
   initialState: initialState,
@@ -18,8 +18,11 @@ export const accountSlice = createSlice({
         return item;
       });
     },
+    monthSet: (state, action) => {
+      state.month = action.payload;
+    },
   },
 });
 
-export const { add, remove, edit } = accountSlice.actions;
+export const { add, remove, edit, monthSet } = accountSlice.actions;
 export default accountSlice.reducer;

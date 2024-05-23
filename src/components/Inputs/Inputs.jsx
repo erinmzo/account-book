@@ -1,8 +1,9 @@
+import styled from "styled-components";
 function Inputs({ onChangeInput, input }) {
   const { date, category, price, content } = input;
   return (
     <>
-      <div>
+      <StyledInputList>
         <label htmlFor="inputDate">날짜</label>
         <input
           type="text"
@@ -12,8 +13,8 @@ function Inputs({ onChangeInput, input }) {
           value={date}
           onChange={onChangeInput}
         />
-      </div>
-      <div>
+      </StyledInputList>
+      <StyledInputList>
         <label htmlFor="inputCategory">항목</label>
         <input
           type="text"
@@ -23,8 +24,8 @@ function Inputs({ onChangeInput, input }) {
           value={category}
           onChange={onChangeInput}
         />
-      </div>
-      <div>
+      </StyledInputList>
+      <StyledInputList>
         <label htmlFor="inputPrice">금액</label>
         <input
           type="text"
@@ -34,8 +35,8 @@ function Inputs({ onChangeInput, input }) {
           value={price}
           onChange={onChangeInput}
         />
-      </div>
-      <div>
+      </StyledInputList>
+      <StyledInputList>
         <label htmlFor="inpuContent">내용</label>
         <input
           type="text"
@@ -45,9 +46,21 @@ function Inputs({ onChangeInput, input }) {
           value={content}
           onChange={onChangeInput}
         />
-      </div>
+      </StyledInputList>
     </>
   );
 }
-
+const StyledInputList = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  label {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 7px;
+  }
+  input {
+    padding: 7px 10px;
+  }
+`;
 export default Inputs;

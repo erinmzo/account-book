@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import useInputChange from "../../hooks/useInputChange";
 import { edit, remove } from "../../store/slices/accountSlice";
+import { getMonth } from "../../utils";
 import EditInputs from "../EditInputs";
 
 const Box = styled.div`
@@ -73,7 +74,7 @@ function DetailAccount() {
       category: editCategory,
       price: Number(editPrice),
       content: editContent,
-      month: Number(editDate.slice(5, 7)),
+      month: getMonth(editDate),
     };
     dispatch(edit(editList));
     navigate("/");
