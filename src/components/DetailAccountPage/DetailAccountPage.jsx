@@ -49,7 +49,7 @@ const BtnBox = styled.div`
     background-color: #666;
   }
 `;
-function DetailAccount() {
+function DetailAccountPage() {
   let { detailId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -110,4 +110,4 @@ function DetailAccount() {
   );
 }
 
-export default DetailAccount;
+export default DetailAccountPage;

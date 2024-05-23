@@ -1,25 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import DetailAccountPage from "../components/DetailAccountPage";
 import HomePage from "../components/HomePage";
-
-export const HOME_PATH = "/";
-
-export const DEATIL_PATH = (param) => {
-  const detail = "/deatil";
-  if (param) {
-    return `${detail}/${param}`;
-  }
-
-  return "/detail/:detailId";
-};
+import { DEATIL_PATH, HOME_PATH } from "../constants";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: HOME_PATH,
     element: <HomePage />,
   },
   {
-    path: "/detail/:detailId",
+    path: DEATIL_PATH(":detailId"),
     element: <DetailAccountPage />,
   },
 ]);
