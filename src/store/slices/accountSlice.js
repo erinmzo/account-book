@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = { list: [], month: 1 };
+
 export const accountSlice = createSlice({
   name: "account",
   initialState: initialState,
