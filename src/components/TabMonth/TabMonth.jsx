@@ -8,6 +8,7 @@ function TabMonth() {
   const dispatch = useDispatch();
   const handleMonthTab = (month) => {
     dispatch(monthSet(month));
+    localStorage.setItem("month", month);
   };
 
   return (

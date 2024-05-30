@@ -59,6 +59,7 @@ function InputAccount() {
 
     dispatch(add(newList));
     dispatch(monthSet(newList.month));
+    localStorage.setItem("month", newList.month);
     onReset();
   };
 

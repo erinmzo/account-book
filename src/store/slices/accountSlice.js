@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { list: [], month: 1 };
+const initialState = { list: [], month: Number(localStorage.getItem("month")) };
 
 export const accountSlice = createSlice({
   name: "account",
